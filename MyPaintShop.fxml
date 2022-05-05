@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <Rectangle fx:id="background" fill="WHITE" height="549.0" layoutX="144.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="762.0" />
+      <AnchorPane fx:id="canvas" layoutX="145.0" layoutY="25.0" onMouseClicked="#canvasClicked" onMouseMoved="#canvasPaintMode" prefHeight="536.0" prefWidth="746.0">
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor></AnchorPane>
+      <AnchorPane layoutY="22.0" prefHeight="543.0" prefWidth="137.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Rectangle fill="#c7c7c7" height="549.0" layoutY="5.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="144.0" AnchorPane.topAnchor="0.0" />
+            <ColorPicker fx:id="backgroundColorPicker" layoutX="10.0" layoutY="498.0" onAction="#backgroundColorHandler" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="10.0" />
+            <Label layoutX="25.0" layoutY="480.0" text="Background Color" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="25.0" />
+            <VBox fx:id="brushSizeBox" alignment="CENTER" layoutX="21.0" layoutY="224.0" prefHeight="94.0" prefWidth="100.0" visible="false" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="224.0">
+               <children>
+                  <Label text="Brush size" />
+                  <Slider fx:id="brushSizeSlider" max="20.0" min="1.0" prefHeight="14.0" prefWidth="118.0" showTickLabels="true" />
+                  <Label text="Brush color" />
+                  <ColorPicker fx:id="colorPickerBrush" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <AnchorPane id="toolbar" fx:id="toolbar" layoutX="3.0" layoutY="268.0" prefHeight="280.0" prefWidth="142.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0">
+               <children>
+                  <Rectangle fill="#99999a" height="280.0" layoutX="-11.0" layoutY="4.0" stroke="TRANSPARENT" strokeType="INSIDE" width="151.0" />
+                  <ColorPicker fx:id="colorPicker" layoutX="9.0" layoutY="74.0" />
+                  <Button fx:id="frameColor" layoutX="9.0" layoutY="36.0" mnemonicParsing="false" onAction="#frameButtonAction" prefHeight="26.0" prefWidth="55.0" text="Frame" />
+                  <Button fx:id="fillColor" layoutX="78.0" layoutY="36.0" mnemonicParsing="false" onAction="#fillButtonAction" prefHeight="26.0" prefWidth="55.0" text="Fill" />
+                  <Label layoutX="20.0" layoutY="112.0" text="Width:" />
+                  <Label layoutX="22.0" layoutY="148.0" text="Hight:" />
+                  <Label layoutX="49.0" layoutY="176.0" text="Rotation:" />
+                  <TextField fx:id="widthBox" layoutX="58.0" layoutY="109.0" onKeyPressed="#widthAction" prefHeight="26.0" prefWidth="66.0" />
+                  <TextField fx:id="hightBox" layoutX="58.0" layoutY="144.0" onKeyPressed="#hightAction" prefHeight="26.0" prefWidth="66.0" />
+                  <Button fx:id="RemoveShapeButton" layoutX="32.0" layoutY="210.0" mnemonicParsing="false" onAction="#RemoveShapeButtonHandler" prefHeight="18.0" prefWidth="78.0" text="Remove" />
+                  <Slider fx:id="rotationSlider" layoutX="14.0" layoutY="192.0" max="360.0" onMouseReleased="#rotationSliderAction" prefHeight="14.0" prefWidth="118.0" />
+                  <Label fx:id="hideLabel" layoutX="96.0" layoutY="7.0" onMouseClicked="#hideLabelHandler" opacity="0.55" text="Hide">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="UndoButton" layoutX="32.0" layoutY="241.0" mnemonicParsing="false" onAction="#UndoButtonHandle" prefHeight="18.0" prefWidth="78.0" text="Undo" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="13.0" layoutY="21.0" text="MyPaintShop" textAlignment="CENTER" textFill="#030202" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="21.0">
+               <font>
+                  <Font name="Corbel" size="21.0" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect>
+            </Label>
+            <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="13.0" layoutY="75.0" prefHeight="120.0" prefWidth="120.0" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="75.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Rectangle fx:id="squareIcon" fill="#1f93ff00" height="50.0" onMouseReleased="#squareDragged" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" width="50.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Circle fx:id="circleIcon" fill="#34424f00" onMouseReleased="#circleDragged" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="4.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Line fx:id="lineIcon" endX="-57.82844543457031" endY="44.97156524658203" onMouseReleased="#lineDragged" startX="-100.0" strokeWidth="4.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Polygon fx:id="triangleIcon" fill="#2197ff00" onMouseReleased="#triangleDragged" points="-50.0, 40.0, 50.0, 40.0, 0.0, -60.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="6.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+               </children>
+            </GridPane>
+            <CheckBox fx:id="paintModeCheckBox" layoutX="28.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#paintModePressed" prefHeight="18.0" prefWidth="92.0" text="PaintMode" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="206.0" />
+         </children>
+      </AnchorPane>
+      <MenuBar layoutX="-7.0" layoutY="1.0" prefHeight="26.0" prefWidth="904.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="menuNew" mnemonicParsing="false" onAction="#menuNewHandler" text="New" />
+                  <MenuItem fx:id="menuOpen" mnemonicParsing="false" onAction="#menuOpenHandler" text="Open…" />
+                  <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" onAction="#menuSaveAsHandler" text="Save As…" />
+                  <MenuItem id="quitButton" fx:id="menuQuit" mnemonicParsing="false" onAction="#menuQuitHandler" text="Quit" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
